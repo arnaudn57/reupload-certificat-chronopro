@@ -25,20 +25,19 @@ $items_id = array_keys($items)[0]; // Récupère order_item_id
 if ($customer_id == $order->data['customer_id']) {
   $commandes = $wpdb->get_results("SELECT `order_item_id` FROM `chro_woocommerce_order_items` WHERE order_id = \"$order_id\""); //Requête SQL pour récupérer la commande
   $order_item_id = $commandes[0]->order_item_id;
-  // echo "<pre>";
-  // var_dump(intval($order_item_id));
-  // echo "</pre>";
+  echo "<pre>";
+  var_dump(intval($order_item_id));
+  echo "</pre>";
 
   $verif_nombre_modif = $wpdb->get_results("SELECT `meta_value` FROM `chro_woocommerce_order_itemmeta` WHERE order_item_id = $order_item_id AND meta_key = '_tax_class'");
   $verif_nombre_modif = $verif_nombre_modif[0]->meta_value;
-  // echo "<pre>";
-  // var_dump($verif_nombre_modif);
-  // echo "</pre>";
+  // // echo "<pre>";
+  // // var_dump($verif_nombre_modif);
+  // // echo "</pre>";
 
   if($verif_nombre_modif == "1"){
-    echo "it's not good";
+    echo "Impossible d'accèder à la modification";
   } else {
-    echo "it's good";
     foreach ($commandes as $key => $value) {
 
       $order_item_id = $value->order_item_id; //Récupère l'order_item_id dans la table chro_woocommerce_order_itemmeta
@@ -134,10 +133,10 @@ if ($customer_id == $order->data['customer_id']) {
             echo "</pre>";
             // Affichage Formulaire d'Upload
             echo "<form method='post' name='upload_certificat_$btn_upload' enctype='multipart/form-data'>
-          <p>Choisissez votre certificat ou licence:</p>
-          <input type='file' name='certificat' accept='image/png, image/jpeg, application/pdf'>
-          <input type='submit' name='upload_certificat_$btn_upload' value='Upload un nouveau certificat' />
-          </form>";
+            <p>Choisissez votre certificat ou licence:</p>
+            <input type='file' name='certificat' accept='image/png, image/jpeg, application/pdf'>
+            <input type='submit' name='upload_certificat_$btn_upload' value='Upload un nouveau certificat' />
+            </form>";
             $test_query_count += 1; //Incrémente
 
             $btn_upload_path = "upload_certificat_$btn_upload";
@@ -191,13 +190,13 @@ if ($customer_id == $order->data['customer_id']) {
                         echo "Query OK";
 
                         //Query Ajout pour commande modifié
-                        $tablename = 'chro_woocommerce_order_itemmeta';
-                        $new_meta_value = true;
-                        $request_order_item_id = intval($order_item_id);
-                        $new_meta_key = "Certificat médical ou licence FFTriathlon";
-                        $request = $wpdb->query($wpdb->prepare("UPDATE $tablename SET meta_value = '%s' WHERE order_item_id = '%d' AND meta_key = '_tax_class'", array($new_meta_value, $request_order_item_id)));
-                        echo "Changement status de modification changé";
-                        echo "<pre>";
+                        // $tablename = 'chro_woocommerce_order_itemmeta';
+                        // $new_meta_value = true;
+                        // $request_order_item_id = intval($order_item_id);
+                        // $new_meta_key = "Certificat médical ou licence FFTriathlon";
+                        // $request = $wpdb->query($wpdb->prepare("UPDATE $tablename SET meta_value = '%s' WHERE order_item_id = '%d' AND meta_key = '_tax_class'", array($new_meta_value, $request_order_item_id)));
+                        // echo "Changement status de modification changé";
+                        // echo "<pre>";
                         $redirect_url = "https://chronopro.net" . $_SERVER['REQUEST_URI'];
                         echo "</pre>";
                         header('Location: ' . $redirect_url);
@@ -242,11 +241,8 @@ if ($customer_id == $order->data['customer_id']) {
   }
 
 
-
 } else {
-
-  echo "Impossible d'accéder à cette commande";
-
+  echo "Impossible d'accéder à cette commande, la modification des certificats a déja était fait";
 }
 
 ?>
@@ -254,4 +250,3 @@ if ($customer_id == $order->data['customer_id']) {
 <?php
 // CHARGE le fichier footer.php
 get_footer(); ?>
-
