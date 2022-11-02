@@ -164,7 +164,7 @@ if ($customer_id == $order->data['customer_id']) {
               echo "<form method='post' name='upload_certificat_$form_count' enctype='multipart/form-data'>
                       <p>Choisissez votre certificat ou licence:</p>
                       <input type='file' name='certificat' accept='image/png, image/jpeg, application/pdf'>
-                      <input type='submit' class='btn btn-primary' name='upload_certificat_$form_count' value='Upload un nouveau certificat' />
+                      <input type='submit' class='btn btn-primary' name='upload_certificat_$form_count' value='Remplacer le certificat' />
                       </form>";
 
               //Si la meta_key verif_nombre_modif n'existe pas, insertion pour chaque formulaire
@@ -291,10 +291,3 @@ if ($customer_id == $order->data['customer_id']) {
     <?php
     // CHARGE le fichier footer.php
     get_footer(); ?>
-
-
-
-
-    <!-- Pour la verif des certificats
-      Ajout dans la bdd une ligne de vérifcation pour chaque certificat
-      INSERT INTO chro_woocommerce_order_itemmeta (order_item_id, meta_key, meta_value) VALUES (21073, "verif_modif_certificat", 0) -->
